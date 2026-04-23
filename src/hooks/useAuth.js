@@ -5,17 +5,21 @@ export const useAuth = () => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
+  // Set base URL for axios
+  const apiBaseUrl = import.meta.env.VITE_API_URL || ''
+
   useEffect(() => {
+    // Check for existing token on mount
     const token = localStorage.getItem('vortex-token')
-    
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-      
-      axios.get('/api/auth/me')
+      // Verify token with backend
+      axios.get(`${apiBaseUrl}/api/auth/me`)
         .then(response => {
           setUser(response.data.user)
         })
         .catch(() => {
+          // Token invalid, remove it
           localStorage.removeItem('vortex-token')
           delete axios.defaults.headers.common['Authorization']
         })
@@ -30,7 +34,7 @@ export const useAuth = () => {
   const login = async (email, password) => {
     try {
       console.log('Frontend login attempt:', email)
-      const response = await axios.post('/api/auth/login', { email, password }, {
+      const response = await axios.post(`${apiBaseUrl}/api/auth/login`, { email, password }, {
         timeout: 10000 // 10 second timeout
       })
       console.log('Login response received:', response.data)
@@ -56,7 +60,7 @@ export const useAuth = () => {
 
   const register = async (name, email, password) => {
     try {
-      const response = await axios.post('/api/auth/register', { name, email, password })
+      const response = await axios.post(`${apiBaseUrl}/api/auth/register`, { name, email, password })
       const { token, user } = response.data
       
       localStorage.setItem('vortex-token', token)
