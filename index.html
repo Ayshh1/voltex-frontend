@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Favicon will be added later -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VORTEX - Interstellar Finance Protocol</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Syne:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+      * {
+        cursor: none !important;
+      }
+      
+      body {
+        background-color: #00000a;
+        overflow-x: hidden;
+      }
+      
+      /* Custom cursor styles */
+      .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background: radial-gradient(circle, #00c9ff, #7b2fff);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: screen;
+      }
+      
+      .cursor-orb {
+        width: 40px;
+        height: 40px;
+        background: radial-gradient(circle, rgba(123, 47, 255, 0.3), rgba(0, 201, 255, 0.1));
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        mix-blend-mode: screen;
+        transition: transform 0.1s ease-out;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-orb"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
