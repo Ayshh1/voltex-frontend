@@ -7,18 +7,21 @@ export default defineConfig(({ mode }) => {
   
   return {
     plugins: [react()],
-    server: {
-      port: 5173,
-      proxy: {
-        '/api': {
-          target: env.VITE_API_URL || 'http://localhost:5000',
-          changeOrigin: true
-        },
-        '/socket.io': {
-          target: env.VITE_SOCKET_URL || 'http://localhost:5000',
-          ws: true
+    // Only use proxy in development mode
+    ...(mode === 'development' && {
+      server: {
+        port: 5173,
+        proxy: {
+          '/api': {
+            target: env.VITE_API_URL || 'http://localhost:5000',
+            changeOrigin: true
+          },
+          '/socket.io': {
+            target: env.VITE_SOCKET_URL || 'http://localhost:5000',
+            ws: true
+          }
         }
       }
-    }
+    })
   }
 })
